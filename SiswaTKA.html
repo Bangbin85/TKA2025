@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TKA - 2025</title>
+    <title>TKA-2025</title>
     <link rel="icon" type="image/x-icon" href="https://lh3.googleusercontent.com/d/1_4llqCMNoBDmwDHsI7RYsCM6rSK5wEjw">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         :root {
@@ -36,11 +37,84 @@
         label { font-weight: 600; margin-bottom: 8px; display: block; font-size: 14px; }
         input[type="text"], select { width: 100%; padding: 14px; margin-bottom: 25px; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-light); color: var(--text-body); font-size: 16px; font-family: 'Montserrat', sans-serif; transition: border-color 0.3s, box-shadow 0.3s; }
         input[type="text"]:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2); }
-        .btn { display: inline-block; background-color: var(--accent); color: white; padding: 14px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; text-decoration: none; transition: background-color 0.2s, transform 0.2s; text-align: center; }
-        .btn:hover { background-color: var(--accent-hover); }
-        .btn:active { transform: scale(0.98); }
-        .btn-secondary { background-color: #bdc3c7; }
-        .btn-secondary:hover { background-color: #95a5a6; }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 14px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 300;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s ease-out;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(50, 50, 93, 0.1), 0 1px 2px rgba(0, 0, 0, 0.07);
+        }
+        .btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+        .btn-secondary {
+            background-color: #bdc3c7;
+            color: var(--text-title);
+        }
+        .btn-secondary:hover {
+            background-color: #95a5a6;
+        }
+
+        .btn-icon {
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* === PENAMBAHAN CSS UNTUK FOOTER HALAMAN START === */
+        .start-page-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .whatsapp-link {
+            text-decoration: none;
+            color: #25D366; /* Warna Hijau WhatsApp */
+            font-size: 30px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .whatsapp-link:hover {
+            color: #128C7E;
+        }
+        .whatsapp-link .fa-whatsapp {
+            font-size: 40px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        /* ============================================= */
+
         .quiz-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 30px; }
         .timer { font-size: 22px; font-weight: 700; color: var(--text-title); background-color: #fbebed; border: 1px solid #e74c3c; padding: 8px 18px; border-radius: 8px; }
         .quiz-body { display: flex; flex-wrap: wrap; gap: 40px; }
@@ -69,14 +143,13 @@
         .review-block { text-align: left; margin-top: 20px; padding: 15px; border-radius: 8px; border-left: 5px solid; }
         .review-block.correct { background-color: #eaf8f1; border-color: var(--correct); }
         .review-block.wrong { background-color: #fbebed; border-color: var(--wrong); }
-        .review-block p b { color: var(--text-title); } /* Styling untuk jawaban benar */
+        .review-block p b { color: var(--text-title); }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 62, 80, 0.7); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; animation: modal-fade-in 0.3s; }
         .modal-content { background: var(--container-bg); padding: 40px; border-radius: 12px; text-align: center; max-width: 450px; width: 100%; animation: modal-pop-in 0.3s ease-out forwards; }
         .modal-buttons { margin-top: 30px; display: flex; justify-content: center; gap: 15px; }
         @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
         @keyframes modal-pop-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* == CSS SERTIFIKAT == */
         #certificate-container { display: none; }
         @media print {
             @page { size: A4 landscape; margin: 0; }
@@ -121,22 +194,38 @@
                     <button type="submit" class="btn" style="width:50%;">Mulai Ujian</button>
                     <a href="Admin_TKA" class="btn" type="submit" style="width:50%; background-color: var(--text-body);">Admin</a>
                 </div>
-            </form>
+
+                <div class="start-page-footer">
+                    <a href="https://wa.me/6281310051985" target="_blank" class="whatsapp-link"><i class="fa fa-whatsapp"></i></a>
+                </div>
+                </form>
         </div>
 
         <div id="quiz-page" class="page hidden">
              <header class="quiz-header">
-                <div><strong id="studentNameDisplay"></strong><br><span id="schoolNameDisplay"></span></div>
-                <div id="timer" class="timer">90:00</div>
-            </header>
-            <div class="quiz-body">
-                <section class="question-display"><div id="question-area"></div></section>
-                <aside class="nav-panel"><h3>Navigasi Soal</h3><div id="nav-grid"></div></aside>
-            </div>
-            <footer class="quiz-footer">
-                <div><button id="prevBtn" class="btn btn-secondary">Sebelumnya</button><button id="nextBtn" class="btn" style="margin-left:10px;">Berikutnya</button></div>
-                <div><label style="display:inline-flex; align-items:center; gap:8px;"><input type="checkbox" id="flagCheck" style="width: 18px; height: 18px;"> Ragu-ragu</label><button id="submitBtn" class="btn" style="background-color: var(--correct); margin-left:20px;">Selesai</button></div>
-            </footer>
+                 <div><strong id="studentNameDisplay"></strong><br><span id="schoolNameDisplay"></span></div>
+                 <div id="timer" class="timer">90:00</div>
+             </header>
+             <div class="quiz-body">
+                 <section class="question-display"><div id="question-area"></div></section>
+                 <aside class="nav-panel"><h2>Navigasi Soal</h2><div id="nav-grid"></div></aside>
+             </div>
+             <footer class="quiz-footer">
+                <div>
+                    <button id="prevBtn" class="btn btn-icon btn-secondary" aria-label="Soal Sebelumnya">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 20 20" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z"/></svg>
+                    </button>
+                    <button id="nextBtn" class="btn btn-icon" style="margin-left:10px;" aria-label="Soal Berikutnya">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 20 20" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
+                    </button>
+                </div>
+                 <div>
+                    <label style="display:inline-flex; align-items:center; gap:8px;">
+                        <input type="checkbox" id="flagCheck" style="width: 18px; height: 18px;"> Ragu
+                    </label>
+                    <button id="submitBtn" class="btn" style="background-color: var(--correct); margin-left:10px;">Selesai</button>
+                </div>
+             </footer>
         </div>
 
         <div id="result-page" class="page hidden">
@@ -178,10 +267,10 @@
             </div>
             <footer class="cert-footer">
                  <div class="cert-signature-block">
-                    <p id="cert-date">[Tanggal]</p>
-                    <p class="signature-line">BANGBIN EDUCATION</p>
-                    <p class="signature-title">Kepala Institusi</p>
-                </div>
+                     <p id="cert-date">[Tanggal]</p>
+                     <p class="signature-line">BANGBIN EDUCATION</p>
+                     <p class="signature-title">Kepala Institusi</p>
+                 </div>
             </footer>
         </div>
     </main>
@@ -572,6 +661,4 @@
 
 </script>
 </body>
-
 </html>
-
